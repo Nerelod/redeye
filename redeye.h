@@ -13,3 +13,4 @@ const int START_WIDTH = 32;
 const int  START_HEIGHT = 32;
 
 void runWindow(Display *display);
+void InitScreen(char *displayName);

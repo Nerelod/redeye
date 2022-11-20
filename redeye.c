@@ -11,7 +11,6 @@ unsigned int depth;
 unsigned int windowWidth;
 unsigned int windowHeight;
 
-char *foreground = NULL; 
 char *background = NULL;
 
 void SetupColors(){
@@ -19,10 +18,9 @@ void SetupColors(){
 	Colormap colorMap;
 	
 	colorMap = DefaultColormap(display, screen);
-	foreground = "red";
+
 	background = "red";
 	
-	XAllocNamedColor(display, colorMap, foreground, &foregroundColor, &exactColor);
 	XAllocNamedColor(display, colorMap, background, &backgroundColor, &exactColor);
 }
 
@@ -46,15 +44,14 @@ int RunScreen(void){
 }
 
 void Process(char *displayName){
-	do {
-		sleep(2);
-		fork();
-		InitScreen(displayName);
-	} while (RunScreen());
+	InitScreen(displayName);
+	RunScreen();
 }
 
 void InitScreen(char *displayName){
+	srand(time(NULL));
 	XSetWindowAttributes windowAttributes;
+	printf("oh yeah");
 	unsigned long windowMask;
 	Window tempRoot;
 	int windowPointX;
@@ -89,6 +86,11 @@ void InitScreen(char *displayName){
 }
 
 int main(int argc, char *argv[]){
-	char displayName[MAXDISPLAYNAME]; 
-	Process(displayName);
+	char displayName[MAXDISPLAYNAME];
+	while(1){
+		sleep(2);
+		printf("running");
+		Process(displayName);
+	}
+	return 0;
 }
